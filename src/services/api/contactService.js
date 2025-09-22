@@ -19,7 +19,6 @@ export const contactService = {
           {"field": {"Name": "last_name_c"}},
           {"field": {"Name": "email_c"}},
           {"field": {"Name": "phone_c"}},
-          {"field": {"Name": "company_c"}},
           {"field": {"Name": "status_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "last_activity_c"}},
@@ -45,7 +44,6 @@ export const contactService = {
         lastName: contact.last_name_c || '',
         email: contact.email_c || '',
         phone: contact.phone_c || '',
-        company: contact.company_c || '',
         status: contact.status_c || 'lead',
         createdAt: contact.created_at_c || contact.CreatedOn,
         lastActivity: contact.last_activity_c || contact.ModifiedOn
@@ -75,7 +73,6 @@ export const contactService = {
           {"field": {"Name": "last_name_c"}},
           {"field": {"Name": "email_c"}},
           {"field": {"Name": "phone_c"}},
-          {"field": {"Name": "company_c"}},
           {"field": {"Name": "status_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "last_activity_c"}},
@@ -98,7 +95,6 @@ export const contactService = {
         lastName: contact.last_name_c || '',
         email: contact.email_c || '',
         phone: contact.phone_c || '',
-        company: contact.company_c || '',
         status: contact.status_c || 'lead',
         createdAt: contact.created_at_c || contact.CreatedOn,
         lastActivity: contact.last_activity_c || contact.ModifiedOn
@@ -124,7 +120,6 @@ export const contactService = {
         last_name_c: contactData.lastName,
         email_c: contactData.email,
         phone_c: contactData.phone || '',
-        company_c: contactData.company,
         status_c: contactData.status || 'lead',
         created_at_c: new Date().toISOString(),
         last_activity_c: new Date().toISOString()
@@ -164,7 +159,6 @@ export const contactService = {
             lastName: createdContact.last_name_c || '',
             email: createdContact.email_c || '',
             phone: createdContact.phone_c || '',
-            company: createdContact.company_c || '',
             status: createdContact.status_c || 'lead',
             createdAt: createdContact.created_at_c || createdContact.CreatedOn,
             lastActivity: createdContact.last_activity_c || createdContact.ModifiedOn
@@ -195,7 +189,6 @@ export const contactService = {
         last_name_c: updateData.lastName,
         email_c: updateData.email,
         phone_c: updateData.phone || '',
-        company_c: updateData.company,
         status_c: updateData.status || 'lead',
         last_activity_c: new Date().toISOString()
       };
@@ -234,7 +227,6 @@ export const contactService = {
             lastName: updatedContact.last_name_c || '',
             email: updatedContact.email_c || '',
             phone: updatedContact.phone_c || '',
-            company: updatedContact.company_c || '',
             status: updatedContact.status_c || 'lead',
             createdAt: updatedContact.created_at_c || updatedContact.CreatedOn,
             lastActivity: updatedContact.last_activity_c || updatedContact.ModifiedOn
@@ -306,7 +298,6 @@ export const contactService = {
           {"field": {"Name": "last_name_c"}},
           {"field": {"Name": "email_c"}},
           {"field": {"Name": "phone_c"}},
-          {"field": {"Name": "company_c"}},
           {"field": {"Name": "status_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "last_activity_c"}},
@@ -320,8 +311,7 @@ export const contactService = {
               "conditions": [
                 {"fieldName": "first_name_c", "operator": "Contains", "values": [query]},
                 {"fieldName": "last_name_c", "operator": "Contains", "values": [query]},
-                {"fieldName": "email_c", "operator": "Contains", "values": [query]},
-                {"fieldName": "company_c", "operator": "Contains", "values": [query]}
+{"fieldName": "email_c", "operator": "Contains", "values": [query]}
               ],
               "operator": "OR"
             }
@@ -344,7 +334,6 @@ export const contactService = {
         lastName: contact.last_name_c || '',
         email: contact.email_c || '',
         phone: contact.phone_c || '',
-        company: contact.company_c || '',
         status: contact.status_c || 'lead',
         createdAt: contact.created_at_c || contact.CreatedOn,
         lastActivity: contact.last_activity_c || contact.ModifiedOn

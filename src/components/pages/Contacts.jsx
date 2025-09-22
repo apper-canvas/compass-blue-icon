@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
-import ApperIcon from "@/components/ApperIcon";
-import Button from "@/components/atoms/Button";
-import Card from "@/components/atoms/Card";
-import Badge from "@/components/atoms/Badge";
-import Input from "@/components/atoms/Input";
-import SearchBar from "@/components/molecules/SearchBar";
-import Modal from "@/components/molecules/Modal";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import Empty from "@/components/ui/Empty";
 import { contactService } from "@/services/api/contactService";
 import { activityService } from "@/services/api/activityService";
 import { dealService } from "@/services/api/dealService";
+import ApperIcon from "@/components/ApperIcon";
+import SearchBar from "@/components/molecules/SearchBar";
+import Modal from "@/components/molecules/Modal";
+import Activities from "@/components/pages/Activities";
+import Deals from "@/components/pages/Deals";
+import Error from "@/components/ui/Error";
+import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
+import Input from "@/components/atoms/Input";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+import Badge from "@/components/atoms/Badge";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -28,12 +30,11 @@ const Contacts = () => {
   const [contactActivities, setContactActivities] = useState([]);
   const [contactDeals, setContactDeals] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-    company: "",
     status: "lead"
   });
 
@@ -75,8 +76,7 @@ const Contacts = () => {
     if (searchTerm) {
       filtered = filtered.filter(contact =>
         `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        contact.company.toLowerCase().includes(searchTerm.toLowerCase())
+contact.email.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -90,7 +90,7 @@ const Contacts = () => {
   const handleOpenModal = (contact = null) => {
     if (contact) {
       setSelectedContact(contact);
-      setFormData({
+setFormData({
         firstName: contact.firstName,
         lastName: contact.lastName,
         email: contact.email,
@@ -107,7 +107,6 @@ const Contacts = () => {
         lastName: "",
         email: "",
         phone: "",
-        company: "",
         status: "lead"
       });
       setIsEditing(false);
@@ -252,7 +251,6 @@ const Contacts = () => {
                 <h3 className="text-lg font-semibold text-slate-800 mb-1">
                   {contact.firstName} {contact.lastName}
                 </h3>
-                <p className="text-slate-600 mb-2">{contact.company}</p>
                 <p className="text-sm text-slate-500 mb-3">{contact.email}</p>
                 
                 <div className="flex items-center justify-between text-xs text-slate-400">
@@ -318,12 +316,6 @@ const Contacts = () => {
                   label="Phone"
                   value={formData.phone}
                   onChange={(e) => setFormData(prev => ({...prev, phone: e.target.value}))}
-                />
-                <Input
-                  label="Company"
-                  value={formData.company}
-                  onChange={(e) => setFormData(prev => ({...prev, company: e.target.value}))}
-                  required
                 />
               </div>
               
@@ -416,12 +408,6 @@ const Contacts = () => {
                 label="Phone"
                 value={formData.phone}
                 onChange={(e) => setFormData(prev => ({...prev, phone: e.target.value}))}
-              />
-              <Input
-                label="Company"
-                value={formData.company}
-                onChange={(e) => setFormData(prev => ({...prev, company: e.target.value}))}
-                required
               />
             </div>
             
