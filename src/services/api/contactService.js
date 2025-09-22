@@ -25,7 +25,7 @@ export const contactService = {
           {"field": {"Name": "CreatedOn"}},
           {"field": {"Name": "ModifiedOn"}}
         ],
-        orderBy: [{"fieldName": "Id", "sorttype": "DESC"}],
+orderBy: [{"fieldName": "Id", "sorttype": "DESC"}],
         pagingInfo: {"limit": 100, "offset": 0}
       };
 
@@ -79,7 +79,7 @@ export const contactService = {
           {"field": {"Name": "CreatedOn"}},
           {"field": {"Name": "ModifiedOn"}}
         ]
-      };
+};
 
       const response = await apperClient.getRecordById(tableName, parseInt(id), params);
 
@@ -125,7 +125,7 @@ export const contactService = {
         last_activity_c: new Date().toISOString()
       };
 
-      const params = {
+const params = {
         records: [dbData]
       };
 
@@ -193,7 +193,7 @@ export const contactService = {
         last_activity_c: new Date().toISOString()
       };
 
-      const params = {
+const params = {
         records: [dbData]
       };
 
@@ -251,7 +251,7 @@ export const contactService = {
 
       const params = { 
         RecordIds: [parseInt(id)]
-      };
+};
 
       const response = await apperClient.deleteRecord(tableName, params);
 
@@ -317,9 +317,8 @@ export const contactService = {
             }
           ]
         }],
-        pagingInfo: {"limit": 50, "offset": 0}
+pagingInfo: {"limit": 50, "offset": 0}
       };
-
       const response = await apperClient.fetchRecords(tableName, params);
 
       if (!response.success) {

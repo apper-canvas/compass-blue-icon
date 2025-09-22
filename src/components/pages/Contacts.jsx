@@ -4,7 +4,6 @@ import { format } from "date-fns";
 import { toast } from "react-toastify";
 import { contactService } from "@/services/api/contactService";
 import { activityService } from "@/services/api/activityService";
-import { dealService } from "@/services/api/dealService";
 import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
 import Modal from "@/components/molecules/Modal";
@@ -26,11 +25,11 @@ const Contacts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedContact, setSelectedContact] = useState(null);
+const [selectedContact, setSelectedContact] = useState(null);
   const [contactActivities, setContactActivities] = useState([]);
   const [contactDeals, setContactDeals] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -53,14 +52,10 @@ const [formData, setFormData] = useState({
     }
   };
 
-  const loadContactDetails = async (contactId) => {
+const loadContactDetails = async (contactId) => {
     try {
-      const [activities, deals] = await Promise.all([
-        activityService.getByContact(contactId),
-        dealService.getAll()
-      ]);
+      const activities = await activityService.getByContact(contactId);
       setContactActivities(activities);
-      setContactDeals(deals.filter(deal => deal.contactId === contactId));
     } catch (err) {
       toast.error("Failed to load contact details");
     }
@@ -73,10 +68,10 @@ const [formData, setFormData] = useState({
   useEffect(() => {
     let filtered = contacts;
 
-    if (searchTerm) {
+if (searchTerm) {
       filtered = filtered.filter(contact =>
         `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-contact.email.toLowerCase().includes(searchTerm.toLowerCase())
+        (contact.email || '').toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -98,8 +93,8 @@ setFormData({
         company: contact.company,
         status: contact.status
       });
-      setIsEditing(true);
-      loadContactDetails(contact.Id);
+setIsEditing(true);
+      loadContactDetails(contact.id);
     } else {
       setSelectedContact(null);
       setFormData({
@@ -127,8 +122,8 @@ setFormData({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (isEditing) {
-        await contactService.update(selectedContact.Id, formData);
+if (isEditing) {
+        await contactService.update(selectedContact.id, formData);
         toast.success("Contact updated successfully");
       } else {
         await contactService.create(formData);
@@ -146,8 +141,8 @@ setFormData({
       try {
         await contactService.delete(contactId);
         toast.success("Contact deleted successfully");
-        await loadContacts();
-        if (selectedContact && selectedContact.Id === contactId) {
+await loadContacts();
+        if (selectedContact && selectedContact.id === contactId) {
           handleCloseModal();
         }
       } catch (err) {
@@ -225,9 +220,9 @@ setFormData({
         />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredContacts.map((contact, index) => (
+{filteredContacts.map((contact, index) => (
             <motion.div
-              key={contact.Id}
+              key={contact.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
@@ -280,9 +275,6 @@ setFormData({
                 </button>
                 <button className="py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700">
                   Activities ({contactActivities.length})
-                </button>
-                <button className="py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700">
-                  Deals ({contactDeals.length})
                 </button>
               </nav>
             </div>
@@ -338,8 +330,8 @@ setFormData({
               <div className="flex justify-between pt-6">
                 <Button
                   type="button"
-                  variant="outline"
-                  onClick={() => handleDelete(selectedContact.Id)}
+variant="outline"
+                  onClick={() => handleDelete(selectedContact.id)}
                   className="text-red-600 border-red-300 hover:bg-red-50"
                 >
                   <ApperIcon name="Trash2" size={16} className="mr-2" />
@@ -361,8 +353,8 @@ setFormData({
               <div className="mt-8">
                 <h4 className="text-lg font-semibold text-slate-800 mb-4">Recent Activities</h4>
                 <div className="space-y-3">
-                  {contactActivities.slice(0, 3).map(activity => (
-                    <div key={activity.Id} className="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg">
+{contactActivities.slice(0, 3).map(activity => (
+                    <div key={activity.id} className="flex items-start space-x-3 p-3 bg-slate-50 rounded-lg">
                       <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center flex-shrink-0">
                         <ApperIcon name={getActivityIcon(activity.type)} size={14} className="text-slate-600" />
                       </div>
@@ -376,7 +368,7 @@ setFormData({
                   ))}
                 </div>
               </div>
-            )}
+)}
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">

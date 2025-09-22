@@ -15,8 +15,7 @@ export const activityService = {
         fields: [
           {"field": {"Name": "Id"}},
           {"field": {"Name": "Name"}},
-          {"field": {"Name": "contact_id_c"}},
-          {"field": {"Name": "deal_id_c"}},
+{"field": {"Name": "contact_id_c"}},
           {"field": {"Name": "type_c"}},
           {"field": {"Name": "description_c"}},
           {"field": {"Name": "created_at_c"}},
@@ -39,7 +38,6 @@ export const activityService = {
       const transformedData = (response.data || []).map(activity => ({
         Id: activity.Id,
         contactId: activity.contact_id_c?.Id || activity.contact_id_c || null,
-        dealId: activity.deal_id_c?.Id || activity.deal_id_c || null,
         type: activity.type_c || 'call',
         description: activity.description_c || '',
         createdAt: activity.created_at_c || activity.CreatedOn
@@ -66,8 +64,7 @@ export const activityService = {
           {"field": {"Name": "Id"}},
           {"field": {"Name": "Name"}},
           {"field": {"Name": "contact_id_c"}},
-          {"field": {"Name": "deal_id_c"}},
-          {"field": {"Name": "type_c"}},
+{"field": {"Name": "type_c"}},
           {"field": {"Name": "description_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "CreatedOn"}},
@@ -86,7 +83,6 @@ export const activityService = {
       return {
         Id: activity.Id,
         contactId: activity.contact_id_c?.Id || activity.contact_id_c || null,
-        dealId: activity.deal_id_c?.Id || activity.deal_id_c || null,
         type: activity.type_c || 'call',
         description: activity.description_c || '',
         createdAt: activity.created_at_c || activity.CreatedOn
@@ -115,9 +111,6 @@ export const activityService = {
       };
 
       // Only include deal_id_c if dealId is provided and not null
-      if (activityData.dealId) {
-        dbData.deal_id_c = parseInt(activityData.dealId);
-      }
 
       const params = {
         records: [dbData]
@@ -150,7 +143,6 @@ export const activityService = {
           return {
             Id: createdActivity.Id,
             contactId: createdActivity.contact_id_c?.Id || createdActivity.contact_id_c || null,
-            dealId: createdActivity.deal_id_c?.Id || createdActivity.deal_id_c || null,
             type: createdActivity.type_c || 'call',
             description: createdActivity.description_c || '',
             createdAt: createdActivity.created_at_c || createdActivity.CreatedOn
@@ -181,9 +173,6 @@ export const activityService = {
       // Only include fields that are being updated
       if (updateData.contactId !== undefined) {
         dbData.contact_id_c = parseInt(updateData.contactId);
-      }
-      if (updateData.dealId !== undefined) {
-        dbData.deal_id_c = updateData.dealId ? parseInt(updateData.dealId) : null;
       }
       if (updateData.type !== undefined) {
         dbData.type_c = updateData.type;
@@ -224,7 +213,6 @@ export const activityService = {
           return {
             Id: updatedActivity.Id,
             contactId: updatedActivity.contact_id_c?.Id || updatedActivity.contact_id_c || null,
-            dealId: updatedActivity.deal_id_c?.Id || updatedActivity.deal_id_c || null,
             type: updatedActivity.type_c || 'call',
             description: updatedActivity.description_c || '',
             createdAt: updatedActivity.created_at_c || updatedActivity.CreatedOn
@@ -293,8 +281,7 @@ export const activityService = {
           {"field": {"Name": "Id"}},
           {"field": {"Name": "Name"}},
           {"field": {"Name": "contact_id_c"}},
-          {"field": {"Name": "deal_id_c"}},
-          {"field": {"Name": "type_c"}},
+{"field": {"Name": "type_c"}},
           {"field": {"Name": "description_c"}},
           {"field": {"Name": "created_at_c"}},
           {"field": {"Name": "CreatedOn"}},
@@ -316,7 +303,6 @@ export const activityService = {
       const transformedData = (response.data || []).map(activity => ({
         Id: activity.Id,
         contactId: activity.contact_id_c?.Id || activity.contact_id_c || null,
-        dealId: activity.deal_id_c?.Id || activity.deal_id_c || null,
         type: activity.type_c || 'call',
         description: activity.description_c || '',
         createdAt: activity.created_at_c || activity.CreatedOn
