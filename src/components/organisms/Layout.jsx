@@ -12,8 +12,10 @@ const Layout = ({ children }) => {
 switch (path) {
       case "/":
         return "Dashboard";
-      case "/contacts":
+case "/contacts":
         return "Contacts";
+      case "/companies":
+        return "Companies";
       case "/deals":
         return "Deals";
       case "/activities":

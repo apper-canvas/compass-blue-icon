@@ -6,8 +6,9 @@ import Button from "@/components/atoms/Button";
 
 const Sidebar = ({ isOpen, onClose }) => {
 const navigation = [
-    { name: "Dashboard", href: "/", icon: "LayoutDashboard" },
+{ name: "Dashboard", href: "/", icon: "LayoutDashboard" },
     { name: "Contacts", href: "/contacts", icon: "Users" },
+    { name: "Companies", href: "/companies", icon: "Building2" },
     { name: "Deals", href: "/deals", icon: "Target" },
     { name: "Activities", href: "/activities", icon: "Clock" },
     { name: "Reports", href: "/reports", icon: "BarChart3" }

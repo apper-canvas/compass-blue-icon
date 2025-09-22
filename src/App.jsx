@@ -12,6 +12,7 @@ import Login from "@/components/pages/Login";
 import Deals from "@/components/pages/Deals";
 import Signup from "@/components/pages/Signup";
 import Contacts from "@/components/pages/Contacts";
+import Companies from "@/components/pages/Companies";
 import ErrorPage from "@/components/pages/ErrorPage";
 import Layout from "@/components/organisms/Layout";
 import store from "@/store/index";
@@ -130,7 +131,8 @@ function AppContent() {
           <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
           <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
           <Route path="/" element={<Layout><Dashboard /></Layout>} />
-          <Route path="/contacts" element={<Layout><Contacts /></Layout>} />
+<Route path="/contacts" element={<Layout><Contacts /></Layout>} />
+          <Route path="/companies" element={<Layout><Companies /></Layout>} />
           <Route path="/deals" element={<Layout><Deals /></Layout>} />
           <Route path="/activities" element={<Layout><Activities /></Layout>} />
           <Route path="/reports" element={<Layout><Reports /></Layout>} />
