@@ -141,7 +141,6 @@ function AppContent() {
 }
 
 function App() {
-function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -158,8 +157,9 @@ function App() {
           pauseOnHover
           className="toast-container"
         />
-      </BrowserRouter>
+</BrowserRouter>
     </Provider>
   );
+}
 
 export default App;
