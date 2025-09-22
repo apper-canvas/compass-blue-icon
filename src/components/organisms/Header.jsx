@@ -5,6 +5,7 @@ import Button from "@/components/atoms/Button";
 import { AuthContext } from "@/App";
 
 const Header = ({ onMenuClick, title = "Dashboard" }) => {
+  const { logout } = useContext(AuthContext);
   return (
     <header className="lg:pl-64 bg-surface shadow-sm border-b border-slate-200">
       <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
@@ -36,8 +37,7 @@ const Header = ({ onMenuClick, title = "Dashboard" }) => {
             variant="ghost" 
             size="sm" 
             className="p-2 text-slate-600 hover:text-slate-800"
-            onClick={() => {
-              const { logout } = useContext(AuthContext);
+onClick={() => {
               logout();
             }}
           >
