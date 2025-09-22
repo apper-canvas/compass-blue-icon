@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { format, subMonths, startOfMonth, endOfMonth, eachMonthOfInterval } from 'date-fns';
-import { toast } from 'react-toastify';
-import Chart from 'react-apexcharts';
-import ApperIcon from '@/components/ApperIcon';
-import Card from '@/components/atoms/Card';
-import Badge from '@/components/atoms/Badge';
-import Button from '@/components/atoms/Button';
-import Loading from '@/components/ui/Loading';
-import Error from '@/components/ui/Error';
-import { reportsService } from '@/services/api/reportsService';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { eachMonthOfInterval, endOfMonth, format, isValid, startOfMonth, subMonths } from "date-fns";
+import { toast } from "react-toastify";
+import Chart from "react-apexcharts";
+import { reportsService } from "@/services/api/reportsService";
+import ApperIcon from "@/components/ApperIcon";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+import Badge from "@/components/atoms/Badge";
 
 function Reports() {
   const [loading, setLoading] = useState(true);
@@ -67,9 +67,12 @@ function Reports() {
       strokeWidth: 2,
       fillOpacity: 1,
       strokeOpacity: 0.9
-    },
-    xaxis: {
-      categories: conversionTrend.map(item => format(new Date(item.month), 'MMM yyyy')),
+},
+xaxis: {
+      categories: conversionTrend?.map(item => {
+        const date = new Date(item?.month);
+        return isValid(date) ? format(date, 'MMM yyyy') : 'Invalid Date';
+      }) || [],
       labels: {
         style: {
           fontSize: '12px',
@@ -103,11 +106,10 @@ function Reports() {
     }
   };
 
-  const conversionChartSeries = [{
+const conversionChartSeries = [{
     name: 'Conversion Rate',
-    data: conversionTrend.map(item => item.rate)
+    data: conversionTrend?.map(item => item?.rate || 0) || []
   }];
-
   const leadGenChartOptions = {
     chart: {
       type: 'bar',
@@ -115,9 +117,12 @@ function Reports() {
       toolbar: { show: false },
       fontFamily: 'Inter, system-ui, sans-serif'
     },
-    colors: ['#f59e0b', '#8b5cf6'],
-    xaxis: {
-      categories: leadGeneration.monthly.map(item => format(new Date(item.month), 'MMM yyyy')),
+colors: ['#f59e0b', '#8b5cf6'],
+xaxis: {
+      categories: leadGeneration?.monthly?.map(item => {
+        const date = new Date(item?.month);
+        return isValid(date) ? format(date, 'MMM yyyy') : 'Invalid Date';
+      }) || [],
       labels: {
         style: {
           fontSize: '12px',
@@ -151,24 +156,23 @@ function Reports() {
     }
   };
 
-  const leadGenChartSeries = [{
+const leadGenChartSeries = [{
     name: 'New Leads',
-    data: leadGeneration.monthly.map(item => item.newLeads)
+    data: leadGeneration?.monthly?.map(item => item?.newLeads || 0) || []
   }, {
     name: 'Qualified Leads',
-    data: leadGeneration.monthly.map(item => item.qualifiedLeads)
+    data: leadGeneration?.monthly?.map(item => item?.qualifiedLeads || 0) || []
   }];
-
   const pipelineChartOptions = {
     chart: {
       type: 'donut',
       height: 300,
       fontFamily: 'Inter, system-ui, sans-serif'
     },
-    colors: ['#1e3a8a', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6'],
-    labels: pipelineAnalysis.byStage.map(item => 
-      item.stage.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())
-    ),
+colors: ['#1e3a8a', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6'],
+    labels: pipelineAnalysis?.byStage?.map(item => 
+      item?.stage?.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'Unknown'
+    ) || [],
     legend: {
       position: 'bottom',
       fontSize: '12px',
@@ -181,10 +185,10 @@ function Reports() {
           labels: {
             show: true,
             total: {
-              show: true,
-              label: 'Total Value',
-              formatter: () => `$${pipelineAnalysis.totalValue.toLocaleString()}`
+label: 'Total Value',
+              formatter: () => `$${(pipelineAnalysis?.totalValue || 0).toLocaleString()}`
             }
+          }
           }
         }
       }
@@ -196,7 +200,7 @@ function Reports() {
     }
   };
 
-  const pipelineChartSeries = pipelineAnalysis.byStage.map(item => item.value);
+const pipelineChartSeries = pipelineAnalysis?.byStage?.map(item => item?.value || 0) || [];
 
   const revenueChartOptions = {
     chart: {
@@ -218,9 +222,12 @@ function Reports() {
     stroke: {
       curve: 'smooth',
       width: 3
-    },
-    xaxis: {
-      categories: revenueMetrics.monthly.map(item => format(new Date(item.month), 'MMM yyyy')),
+},
+xaxis: {
+      categories: revenueMetrics?.monthly?.map(item => {
+        const date = new Date(item?.month);
+        return isValid(date) ? format(date, 'MMM yyyy') : 'Invalid Date';
+      }) || [],
       labels: {
         style: {
           fontSize: '12px',
@@ -248,11 +255,10 @@ function Reports() {
     }
   };
 
-  const revenueChartSeries = [{
+const revenueChartSeries = [{
     name: 'Revenue',
-    data: revenueMetrics.monthly.map(item => item.revenue)
+    data: revenueMetrics?.monthly?.map(item => item?.revenue || 0) || []
   }];
-
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
