@@ -178,17 +178,16 @@ colors: ['#1e3a8a', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6'],
       fontSize: '12px',
       fontFamily: 'Inter, system-ui, sans-serif'
     },
-    plotOptions: {
+plotOptions: {
       pie: {
         donut: {
           size: '65%',
           labels: {
             show: true,
             total: {
-label: 'Total Value',
+              label: 'Total Value',
               formatter: () => `$${(pipelineAnalysis?.totalValue || 0).toLocaleString()}`
             }
-          }
           }
         }
       }
